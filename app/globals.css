@@ -808,6 +808,10 @@ textarea.field-control {
   color: var(--color-cream);
 }
 
+.wall-layout .stats-row .stat-label {
+  color: var(--color-cream);
+}
+
 .wall-layout {
   display: grid;
   gap: var(--space-xl);
