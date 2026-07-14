@@ -222,7 +222,7 @@ button {
 }
 
 .site-footer {
-  background: var(--color-deep-teal);
+  background: var(--color-forest);
   color: var(--color-cream);
   padding-block: var(--space-xl);
 }
@@ -242,9 +242,20 @@ button {
 .hero-brand {
   position: relative;
   overflow: hidden;
-  background: var(--color-deep-teal);
+  background-color: var(--color-forest);
   color: var(--color-cream);
   padding-block: var(--space-3xl);
+}
+
+.hero-brand::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('/slogan/bg-grain.png') center no-repeat;
+  background-size: cover;
+  opacity: 0.05;
+  pointer-events: none;
 }
 
 .hero-media {
@@ -961,6 +972,10 @@ textarea.field-control {
     position: absolute;
     inset: 0;
     z-index: 0;
+  }
+
+  .hero-brand::before {
+    display: none;
   }
 
   .nav-toggle {
