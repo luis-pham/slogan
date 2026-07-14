@@ -1,0 +1,17 @@
+version: '3.8'
+
+networks:
+  slogan-net:
+    driver: bridge
+
+services:
+  slogan-app:
+    build: .
+    container_name: greenruby-slogan-app
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    networks:
+      - slogan-net
+    env_file:
+      - .env.production

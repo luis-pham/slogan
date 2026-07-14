@@ -1,0 +1,15 @@
+.env
+.env.local
+.env.production
+.env*.local
+.next/
+node_modules/
+coverage/
+playwright-report/
+test-results/
+dist/
+*.log
+*.tsbuildinfo
+.DS_Store
+supabase/.branches/
+supabase/.temp/
