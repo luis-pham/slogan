@@ -8,10 +8,10 @@ insert into public.campaign_settings (
 ) values (
   1,
   'submission',
-  now() - interval '1 day',
-  now() + interval '7 days',
-  now() + interval '8 days',
-  now() + interval '11 days'
+  timestamptz '2026-07-01 00:00:00+07',
+  timestamptz '2026-07-31 23:59:59+07',
+  timestamptz '2026-08-01 00:00:00+07',
+  timestamptz '2026-08-03 23:59:59+07'
 ) on conflict (id) do update set
   phase = excluded.phase,
   submission_start = excluded.submission_start,

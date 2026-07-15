@@ -8,6 +8,8 @@ import { PrizeRulesTabs } from '@/components/prize-rules-tabs';
 import { getCampaignSettings } from '@/lib/data/campaign';
 import { getFeaturedSubmissions } from '@/lib/data/submissions';
 
+export const dynamic = 'force-dynamic';
+
 const steps = [
   ['1', 'Viết slogan', 'Gửi slogan tối đa 10 chữ và phần giải thích tối đa 50 chữ.'],
   ['2', 'Xác thực email', 'Nhập email và xác nhận bằng mã OTP 6 số.'],

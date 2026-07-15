@@ -7,9 +7,7 @@ import { usePathname } from 'next/navigation';
 import { IconMenu2, IconX } from '@tabler/icons-react';
 
 const mainLinks = [
-  { href: '/hanh-trinh', label: 'Hành trình' },
-  { href: '/du-thuyen', label: 'Du thuyền' },
-  { href: '/lien-he', label: 'Liên hệ' },
+  { href: 'https://greenrubycruises.com/vi/lien-he', label: 'Liên hệ' },
 ];
 
 const contestLinks = [

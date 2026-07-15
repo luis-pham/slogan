@@ -1,16 +1,19 @@
+import { unstable_noStore as noStore } from 'next/cache';
 import { createServiceSupabaseClient } from '@/lib/supabase/server';
 import type { CampaignSettings } from '@/lib/types';
 
 const fallbackCampaign: CampaignSettings = {
   id: 1,
   phase: 'submission',
-  submission_start: new Date().toISOString(),
-  submission_end: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-  voting_start: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000).toISOString(),
-  voting_end: new Date(Date.now() + 11 * 24 * 60 * 60 * 1000).toISOString(),
+  submission_start: '2026-07-01T00:00:00+07:00',
+  submission_end: '2026-07-31T23:59:59+07:00',
+  voting_start: '2026-08-01T00:00:00+07:00',
+  voting_end: '2026-08-03T23:59:59+07:00',
 };
 
 export async function getCampaignSettings() {
+  noStore();
+
   try {
     const supabase = createServiceSupabaseClient();
     const { data, error } = await supabase
