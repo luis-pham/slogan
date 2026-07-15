@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import type { PostgrestError } from '@supabase/supabase-js';
 import { getCampaignSettings } from '@/lib/data/campaign';
+import { canAcceptVotes } from '@/lib/campaign-phase';
 import { assertSameOrigin, getClientIp } from '@/lib/request';
 import { createServiceSupabaseClient } from '@/lib/supabase/server';
 import { voteSchema } from '@/lib/validation';
@@ -27,9 +28,9 @@ export async function POST(request: NextRequest) {
     }
 
     const campaign = await getCampaignSettings();
-    if (campaign.phase !== 'voting') {
+    if (!canAcceptVotes(campaign.phase)) {
       return NextResponse.json(
-        { error: 'Hiện chưa mở bình chọn.' },
+        { error: 'Bình chọn đã đóng.' },
         { status: 403 },
       );
     }

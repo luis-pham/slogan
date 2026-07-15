@@ -6,22 +6,19 @@ type PhaseBannerProps = {
 
 const phaseCopy = {
   submission: {
-    title: 'Giai đoạn nhận bài',
-    body: 'Cần xác thực OTP qua email để gửi slogan. Bình chọn sẽ mở sau khi hết thời gian nhận bài.',
-  },
-  voting: {
-    title: 'Giai đoạn bình chọn',
-    body: 'Các bài đã duyệt đang mở bình chọn. Không cần đăng nhập; hệ thống áp dụng giới hạn theo fingerprint và IP.',
+    title: 'Đang nhận bài & mở bình chọn',
+    body: 'Vote cho slogan bạn yêu thích đến hết 31/07.',
   },
   ended: {
     title: 'Cuộc thi đã kết thúc',
-    body: 'Bình chọn công khai đã đóng. Kết quả sẽ hiển thị sau khi đội Green Ruby rà soát thủ công.',
+    body: 'Nhận bài và bình chọn công khai đã đóng. Kết quả sẽ được công bố sau khi Ban giám khảo chấm nội bộ.',
   },
 };
 
 export function PhaseBanner({ campaign }: PhaseBannerProps) {
   const copy = phaseCopy[campaign.phase];
-  const className = campaign.phase === 'voting' ? 'phase-banner phase-banner-voting' : 'phase-banner';
+  const className =
+    campaign.phase === 'submission' ? 'phase-banner phase-banner-active' : 'phase-banner';
 
   return (
     <aside className={className}>

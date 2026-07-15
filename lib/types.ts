@@ -1,4 +1,4 @@
-export type CampaignPhase = 'submission' | 'voting' | 'ended';
+export type CampaignPhase = 'submission' | 'ended';
 export type SubmissionStatus = 'pending' | 'approved' | 'rejected';
 export type FollowedChannel = 'facebook' | 'tiktok' | 'instagram' | 'youtube';
 
@@ -7,7 +7,9 @@ export type CampaignSettings = {
   phase: CampaignPhase;
   submission_start: string;
   submission_end: string;
+  /** Kept in DB for compatibility; not used by app logic after voting-model update. */
   voting_start: string;
+  /** Kept in DB for compatibility; not used by app logic after voting-model update. */
   voting_end: string;
 };
 

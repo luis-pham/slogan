@@ -29,6 +29,8 @@ export default async function EntryPage({ params }: EntryPageProps) {
 
   const leaderboard = await getLeaderboard();
   const entryUrl = `${env.siteUrl.replace(/\/$/, '')}/slogan/entry/${submission.slug}`;
+  const isPending = submission.status === 'pending';
+  const canVote = submission.status === 'approved';
 
   return (
     <main>
@@ -37,9 +39,22 @@ export default async function EntryPage({ params }: EntryPageProps) {
           <article className="hero-copy">
             <p className="submission-meta">Bài dự thi của {submission.full_name}</p>
             <h1 className="entry-slogan">&ldquo;{submission.slogan}&rdquo;</h1>
+            {isPending ? (
+              <p className="field-helper">
+                Bài dự thi đã được ghi nhận và đang chờ hiển thị công khai.
+              </p>
+            ) : (
+              <p className="field-helper">
+                Bình chọn đang mở đến hết 31/07 — chia sẻ link bài của bạn để nhận vote ngay.
+              </p>
+            )}
           </article>
           <aside className="vote-card vote-button-wrap">
-            <VoteButton initialVotes={submission.vote_count} submissionId={submission.id} />
+            {canVote ? (
+              <VoteButton initialVotes={submission.vote_count} submissionId={submission.id} />
+            ) : (
+              <p className="field-helper">Chưa thể bình chọn cho bài này.</p>
+            )}
           </aside>
         </div>
       </section>

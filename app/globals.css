@@ -789,7 +789,7 @@ textarea.field-control {
   padding: var(--space-lg);
 }
 
-.phase-banner-voting {
+.phase-banner-active {
   background: var(--color-gold);
   border-color: var(--color-gold);
   color: var(--color-on-gold);

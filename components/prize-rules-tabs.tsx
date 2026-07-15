@@ -64,7 +64,7 @@ const rules = [
   {
     number: '05',
     title: 'Cách chọn người thắng',
-    body: 'Giải Nhất, Nhì, Ba do Ban giám khảo chấm. Giải Được Yêu Thích do cộng đồng bình chọn công khai trong 3 ngày sau khi kết thúc nhận bài. Nếu điểm bằng nhau, bài follow đủ 4 kênh sẽ được ưu tiên.',
+    body: 'Giải Nhất, Nhì, Ba do Ban giám khảo chấm. Giải Được Yêu Thích do cộng đồng bình chọn công khai, mở suốt thời gian nhận bài đến hết 31/07. Nộp sớm để có nhiều thời gian nhận vote hơn.',
   },
   {
     number: '06',

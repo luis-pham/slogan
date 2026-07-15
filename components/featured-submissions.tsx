@@ -2,21 +2,18 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import type { CampaignPhase, Submission } from '@/lib/types';
+import type { Submission } from '@/lib/types';
 
 type FeaturedSubmissionsProps = {
   newest: Submission[];
   mostVoted: Submission[];
-  phase: CampaignPhase;
 };
 
 type TabKey = 'newest' | 'votes';
 
-export function FeaturedSubmissions({ newest, mostVoted, phase }: FeaturedSubmissionsProps) {
-  const votesLocked = phase === 'submission';
+export function FeaturedSubmissions({ newest, mostVoted }: FeaturedSubmissionsProps) {
   const [tab, setTab] = useState<TabKey>('newest');
-  const activeTab = votesLocked ? 'newest' : tab;
-  const entries = activeTab === 'newest' ? newest : mostVoted;
+  const entries = tab === 'newest' ? newest : mostVoted;
 
   if (newest.length === 0 && mostVoted.length === 0) {
     return null;
@@ -34,8 +31,8 @@ export function FeaturedSubmissions({ newest, mostVoted, phase }: FeaturedSubmis
           <button
             type="button"
             role="tab"
-            aria-selected={activeTab === 'newest'}
-            className={activeTab === 'newest' ? 'step-bar-item step-bar-item-active' : 'step-bar-item'}
+            aria-selected={tab === 'newest'}
+            className={tab === 'newest' ? 'step-bar-item step-bar-item-active' : 'step-bar-item'}
             onClick={() => setTab('newest')}
           >
             Mới nhất
@@ -43,13 +40,9 @@ export function FeaturedSubmissions({ newest, mostVoted, phase }: FeaturedSubmis
           <button
             type="button"
             role="tab"
-            aria-selected={activeTab === 'votes'}
-            aria-disabled={votesLocked}
-            title={votesLocked ? 'Mở sau khi kết thúc nhận bài' : undefined}
-            className={activeTab === 'votes' ? 'step-bar-item step-bar-item-active' : 'step-bar-item'}
-            onClick={() => {
-              if (!votesLocked) setTab('votes');
-            }}
+            aria-selected={tab === 'votes'}
+            className={tab === 'votes' ? 'step-bar-item step-bar-item-active' : 'step-bar-item'}
+            onClick={() => setTab('votes')}
           >
             Nhiều vote nhất
           </button>

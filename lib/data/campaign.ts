@@ -5,10 +5,10 @@ import type { CampaignSettings } from '@/lib/types';
 const fallbackCampaign: CampaignSettings = {
   id: 1,
   phase: 'submission',
-  submission_start: '2026-07-01T00:00:00+07:00',
+  submission_start: '2026-07-10T00:00:00+07:00',
   submission_end: '2026-07-31T23:59:59+07:00',
-  voting_start: '2026-08-01T00:00:00+07:00',
-  voting_end: '2026-08-03T23:59:59+07:00',
+  voting_start: '2026-07-15T00:00:00+07:00',
+  voting_end: '2026-07-31T23:59:59+07:00',
 };
 
 export async function getCampaignSettings() {

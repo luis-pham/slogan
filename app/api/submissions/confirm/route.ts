@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
         explanation: pending.explanation,
         followed_channels: pending.followed_channels,
         submitter_fingerprint_hash: pending.fingerprint_hash,
-        status: 'pending',
+        status: 'approved',
       });
 
       insertError = error;

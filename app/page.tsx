@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { IconClock } from '@tabler/icons-react';
 import { Countdown } from '@/components/countdown';
 import { FeaturedSubmissions } from '@/components/featured-submissions';
-import { PhaseBanner } from '@/components/phase-banner';
 import { PrizeRulesTabs } from '@/components/prize-rules-tabs';
 import { getCampaignSettings } from '@/lib/data/campaign';
 import { getFeaturedSubmissions } from '@/lib/data/submissions';
@@ -44,7 +43,6 @@ export default async function HomePage() {
           </div>
           <div className="form-grid">
             <Countdown target={campaign.submission_end} />
-            <PhaseBanner campaign={campaign} />
           </div>
         </div>
       </section>
@@ -62,7 +60,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <FeaturedSubmissions newest={featured.newest} mostVoted={featured.mostVoted} phase={campaign.phase} />
+      <FeaturedSubmissions newest={featured.newest} mostVoted={featured.mostVoted} />
 
       <section className="section section-forest">
         <div className="page-frame section-stack">

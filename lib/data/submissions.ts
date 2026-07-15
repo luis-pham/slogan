@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from 'next/cache';
 import { createServiceSupabaseClient } from '@/lib/supabase/server';
 import type { LeaderboardEntry, Submission } from '@/lib/types';
 
@@ -79,13 +80,15 @@ export async function getLeaderboard(limit = 10): Promise<LeaderboardEntry[]> {
 }
 
 export async function getSubmissionBySlug(slug: string) {
+  noStore();
+
   try {
     const supabase = createServiceSupabaseClient();
     const { data, error } = await supabase
       .from('submissions')
       .select('*')
       .eq('slug', slug)
-      .eq('status', 'approved')
+      .in('status', ['pending', 'approved'])
       .single();
 
     if (error || !data) {

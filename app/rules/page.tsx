@@ -57,12 +57,14 @@ export default function RulesPage() {
           <section className="rules-section" id="section-2">
             <h2>2. Thời gian chương trình</h2>
             <ul className="rules-list">
-              <li>Thời gian nhận bài: [ngày bắt đầu] đến [ngày kết thúc], 14 ngày</li>
+              <li>Thời gian nhận bài: từ 10/07/2026 đến hết ngày 31/07/2026 (23:59, giờ Việt Nam)</li>
               <li>
-                Thời gian bình chọn công khai: [ngày] đến [ngày], 3 ngày liên tiếp ngay sau khi kết thúc nhận bài
+                Thời gian bình chọn công khai: mở song song với nhận bài, từ 15/07/2026 đến hết ngày 31/07/2026
+                (23:59) — nộp sớm có nhiều thời gian nhận vote hơn
               </li>
               <li>
-                Công bố kết quả và trao giải: [ngày], phát trực tiếp trên Facebook và TikTok của Green Ruby Cruises
+                Công bố kết quả và trao giải: sau khi Ban giám khảo chấm nội bộ, phát trực tiếp trên Facebook và
+                TikTok của Green Ruby Cruises
               </li>
             </ul>
           </section>
@@ -176,7 +178,7 @@ export default function RulesPage() {
               </table>
             </div>
             <p>
-              Vé có giá trị sử dụng cho các chuyến khởi hành từ tháng 10/2026 đến hết tháng 3/2027. Không áp dụng
+              Vé có giá trị sử dụng cho các chuyến khởi hành từ tháng 12/2026 đến hết tháng 6/2027. Không áp dụng
               đồng thời với các ưu đãi khác. Phiếu ưu đãi không có giá trị quy đổi thành tiền mặt.
             </p>
           </section>
@@ -217,8 +219,10 @@ export default function RulesPage() {
               hơn.
             </p>
             <p>
-              <strong>Giải Được Yêu Thích:</strong> không áp dụng tiêu chí phụ này vì đã xác định bằng số lượt vote
-              công khai, không có trường hợp bằng điểm cần phân xử.
+              <strong>Giải Được Yêu Thích:</strong> Bình chọn mở ngay khi bài dự thi được duyệt và kéo dài đến hết
+              thời gian nhận bài (23:59 ngày 31/07/2026). Giải Được Yêu Thích được xác định bằng tổng lượt vote
+              công khai hợp lệ tính đến thời điểm đóng bình chọn. Bài dự thi nộp sớm sẽ có nhiều thời gian nhận
+              bình chọn hơn — hãy tham gia sớm để tăng cơ hội.
             </p>
           </section>
 

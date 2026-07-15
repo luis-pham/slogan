@@ -19,19 +19,22 @@ type JoinFormProps = {
 const stepItems = [
   ['1', 'Điền thông tin'],
   ['2', 'Xác nhận email'],
+  ['3', 'Hoàn tất'],
 ];
 
 const stepIndex = {
   details: 0,
   confirm: 1,
+  success: 2,
 };
 
 export function JoinForm({ turnstileEnabled, turnstileSiteKey }: JoinFormProps) {
   const router = useRouter();
-  const [step, setStep] = useState<'details' | 'confirm'>('details');
+  const [step, setStep] = useState<'details' | 'confirm' | 'success'>('details');
   const [email, setEmail] = useState('');
   const [otpCode, setOtpCode] = useState('');
   const [pendingId, setPendingId] = useState('');
+  const [submittedSlug, setSubmittedSlug] = useState('');
   const [fullName, setFullName] = useState('');
   const [slogan, setSlogan] = useState('');
   const [explanation, setExplanation] = useState('');
@@ -146,7 +149,9 @@ export function JoinForm({ turnstileEnabled, turnstileSiteKey }: JoinFormProps) 
 
         if (!response.ok) {
           if (payload.slug) {
-            router.push(`/entry/${payload.slug}`);
+            setSubmittedSlug(payload.slug);
+            setStep('success');
+            setFeedback('Chúc mừng! Bạn đã gửi bài thi thành công.', 'success');
             return;
           }
 
@@ -154,7 +159,14 @@ export function JoinForm({ turnstileEnabled, turnstileSiteKey }: JoinFormProps) 
           return;
         }
 
-        router.push(`/entry/${payload.slug}`);
+        if (!payload.slug) {
+          setFeedback('Không nhận được đường dẫn bài dự thi. Vui lòng thử lại.', 'error');
+          return;
+        }
+
+        setSubmittedSlug(payload.slug);
+        setStep('success');
+        setFeedback('Chúc mừng! Bạn đã gửi bài thi thành công.', 'success');
       } catch {
         setFeedback('Yêu cầu xác nhận thất bại. Kiểm tra kết nối và thử lại.', 'error');
       }
@@ -172,7 +184,7 @@ export function JoinForm({ turnstileEnabled, turnstileSiteKey }: JoinFormProps) 
   return (
     <div className="form-panel">
       <div className="form-grid">
-        <div className="step-bar step-bar-two" aria-label="Các bước gửi bài">
+        <div className="step-bar" aria-label="Các bước gửi bài">
           {stepItems.map(([number, label], index) => (
             <span
               className={index === stepIndex[step] ? 'step-bar-item step-bar-item-active' : 'step-bar-item'}
@@ -183,9 +195,11 @@ export function JoinForm({ turnstileEnabled, turnstileSiteKey }: JoinFormProps) 
           ))}
         </div>
 
-        <p className="submission-meta">
-          <IconClock size={18} aria-hidden="true" /> Điền thông tin trước, xác nhận email sau. Bình chọn không cần đăng nhập.
-        </p>
+        {step !== 'success' ? (
+          <p className="submission-meta">
+            <IconClock size={18} aria-hidden="true" /> Điền thông tin trước, xác nhận email sau. Bình chọn không cần đăng nhập.
+          </p>
+        ) : null}
 
         {step === 'details' ? (
           <form className="form-grid" onSubmit={submitDetails}>
@@ -327,6 +341,29 @@ export function JoinForm({ turnstileEnabled, turnstileSiteKey }: JoinFormProps) 
               </button>
             </div>
           </form>
+        ) : null}
+
+        {step === 'success' ? (
+          <div className="form-grid">
+            <div className="meaning-box">
+              <strong>Chúc mừng đã gửi bài thi thành công</strong>
+              <p>
+                Cảm ơn {fullName}. Slogan &ldquo;{slogan}&rdquo; của bạn đã được duyệt và có thể chia sẻ ngay.
+              </p>
+            </div>
+            <div className="hero-actions">
+              <button
+                className="button button-primary"
+                type="button"
+                onClick={() => router.push(`/entry/${submittedSlug}`)}
+              >
+                Xem trang bài dự thi
+              </button>
+              <button className="button" type="button" onClick={() => router.push('/wall')}>
+                Xem tường bài dự thi
+              </button>
+            </div>
+          </div>
         ) : null}
 
         {message ? (
