@@ -51,7 +51,12 @@ export default async function EntryPage({ params }: EntryPageProps) {
           </article>
           <aside className="vote-card vote-button-wrap">
             {canVote ? (
-              <VoteButton initialVotes={submission.vote_count} submissionId={submission.id} />
+              <VoteButton
+                initialVotes={submission.vote_count}
+                submissionId={submission.id}
+                turnstileEnabled={env.turnstileEnabled}
+                turnstileSiteKey={env.turnstileSiteKey}
+              />
             ) : (
               <p className="field-helper">Chưa thể bình chọn cho bài này.</p>
             )}
