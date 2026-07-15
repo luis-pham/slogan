@@ -22,7 +22,21 @@ export default async function HomePage() {
     <main>
       <section className="hero-brand">
         <div className="hero-media" aria-hidden="true">
-          <Image src="/slogan/hero.jpg" alt="" fill sizes="(min-width: 40rem) 100vw, 0px" className="hero-media-img" />
+          <Image
+            src="/slogan/hero_mb.jpg"
+            alt=""
+            fill
+            sizes="(max-width: 39.99rem) 100vw, 0px"
+            className="hero-media-img hero-media-img-mobile"
+            priority
+          />
+          <Image
+            src="/slogan/hero.jpg"
+            alt=""
+            fill
+            sizes="(min-width: 40rem) 100vw, 0px"
+            className="hero-media-img hero-media-img-desktop"
+          />
           <div className="hero-media-overlay" />
         </div>
         <div className="page-frame hero-grid">

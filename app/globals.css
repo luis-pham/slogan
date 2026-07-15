@@ -256,14 +256,23 @@ button {
   background-size: cover;
   opacity: 0.05;
   pointer-events: none;
+  display: none;
 }
 
 .hero-media {
-  display: none;
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
 .hero-media-img {
   object-fit: cover;
+  filter: brightness(1.1) contrast(1.03) saturate(1.04);
+}
+
+.hero-media-img-desktop {
+  display: none;
 }
 
 .hero-media-overlay {
@@ -271,9 +280,9 @@ button {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(13, 43, 26, 0.74) 0%,
-    rgba(13, 43, 26, 0.62) 45%,
-    rgba(13, 43, 26, 0.8) 100%
+    rgba(13, 43, 26, 0.4) 0%,
+    rgba(13, 43, 26, 0.28) 45%,
+    rgba(13, 43, 26, 0.46) 100%
   );
 }
 
@@ -971,15 +980,25 @@ textarea.field-control {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .hero-media {
-    display: block;
-    position: absolute;
-    inset: 0;
-    z-index: 0;
+  .hero-media-img-mobile {
+    display: none;
   }
 
-  .hero-brand::before {
-    display: none;
+  .hero-media-img-desktop {
+    display: block;
+  }
+
+  .hero-media-img {
+    filter: brightness(1.12) contrast(1.04) saturate(1.05);
+  }
+
+  .hero-media-overlay {
+    background: linear-gradient(
+      105deg,
+      rgba(13, 43, 26, 0.42) 0%,
+      rgba(13, 43, 26, 0.22) 48%,
+      rgba(13, 43, 26, 0.34) 100%
+    );
   }
 
   .nav-toggle {
