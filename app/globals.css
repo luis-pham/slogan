@@ -1048,49 +1048,6 @@ textarea.field-control {
   }
 }
 
-.cookie-banner {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 1rem;
-  right: 1rem;
-  z-index: 9999;
-  max-width: 60rem;
-  margin: 0 auto;
-  padding: var(--space-lg);
-  background: var(--color-cream);
-  border: var(--rule-thin) solid var(--color-forest);
-  box-shadow: 0 8px 32px rgba(13, 43, 26, 0.2);
-}
-
-.cookie-banner-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-md);
-}
-
-.cookie-banner-text {
-  flex: 1;
-  min-width: 12.5rem;
-}
-
-.cookie-banner-title {
-  margin: 0 0 var(--space-xs);
-  font-weight: 700;
-}
-
-.cookie-banner-description {
-  margin: 0;
-  font-size: var(--text-sm);
-}
-
-.cookie-banner-actions {
-  display: flex;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

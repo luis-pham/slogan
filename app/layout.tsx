@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
 import './globals.css';
-import { GtmConsent } from '@/components/gtm-consent';
+import { GoogleTagManager } from '@/components/google-tag-manager';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
-import { publicEnv } from '@/lib/public-env';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin', 'vietnamese'],
@@ -39,12 +38,12 @@ export default function RootLayout({
   return (
     <html lang="vi" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body>
+        <GoogleTagManager />
         <div className="site-shell">
           <SiteHeader />
           {children}
           <SiteFooter />
         </div>
-        <GtmConsent gtmId={publicEnv.gtmId} />
       </body>
     </html>
   );
