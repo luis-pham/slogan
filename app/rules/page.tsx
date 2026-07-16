@@ -230,8 +230,6 @@ export default function RulesPage() {
             <h2>10. Ban giám khảo</h2>
             <ul className="rules-list">
               <li>Đại diện Green Ruby Cruises</li>
-              <li>[Tên khách mời 1]</li>
-              <li>[Tên khách mời 2]</li>
             </ul>
             <p>Quyết định của Ban giám khảo là quyết định cuối cùng đối với Giải Nhất, Nhì, Ba.</p>
           </section>
@@ -285,8 +283,8 @@ export default function RulesPage() {
           <section className="rules-section" id="section-14">
             <h2>14. Liên hệ</h2>
             <p>
-              Mọi thắc mắc về chương trình, vui lòng liên hệ: [email hỗ trợ] hoặc qua fanpage chính thức của Green
-              Ruby Cruises.
+              Mọi thắc mắc về chương trình, vui lòng liên hệ: hello@greenrubycruises.com hoặc qua fanpage chính
+              thức của Green Ruby Cruises.
             </p>
           </section>
 
