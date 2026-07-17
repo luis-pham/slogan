@@ -5,10 +5,15 @@ import { canAcceptVotes } from '@/lib/campaign-phase';
 import { assertSameOrigin, getClientIp } from '@/lib/request';
 import { createServiceSupabaseClient } from '@/lib/supabase/server';
 import { voteSchema } from '@/lib/validation';
-import { hashFingerprint, hashIp } from '@/lib/hash';
+import { hashFingerprint, hashIp, hashWithSalt } from '@/lib/hash';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { verifyTurnstile } from '@/lib/turnstile';
 import { requireServerEnv } from '@/lib/env';
+import {
+  flagSubmissionIfVoteSpike,
+  VOTE_RATE_LIMIT_PER_HOUR,
+  VOTE_RATE_LIMIT_PER_MINUTE,
+} from '@/lib/vote-guard';
 
 function isUniqueViolation(error: PostgrestError | null) {
   return error?.code === '23505';
@@ -38,18 +43,34 @@ export async function POST(request: NextRequest) {
     const supabase = createServiceSupabaseClient();
     const ipHash = hashIp(getClientIp(request));
     const fingerprintHash = hashFingerprint(body.fingerprint);
+    const hourlyKey = hashWithSalt(`vote_hour:${ipHash}`);
 
-    const rateLimit = await checkRateLimit(supabase, {
+    const minuteRateLimit = await checkRateLimit(supabase, {
       action: 'vote',
       key: ipHash,
       ipHash,
-      limit: 20,
+      limit: VOTE_RATE_LIMIT_PER_MINUTE,
       windowSeconds: 60,
     });
 
-    if (!rateLimit.allowed) {
+    if (!minuteRateLimit.allowed) {
       return NextResponse.json(
         { error: 'Có quá nhiều lượt bình chọn từ mạng này. Vui lòng chờ một phút rồi thử lại.' },
+        { status: 429 },
+      );
+    }
+
+    const hourlyRateLimit = await checkRateLimit(supabase, {
+      action: 'vote',
+      key: hourlyKey,
+      ipHash,
+      limit: VOTE_RATE_LIMIT_PER_HOUR,
+      windowSeconds: 60 * 60,
+    });
+
+    if (!hourlyRateLimit.allowed) {
+      return NextResponse.json(
+        { error: 'Bạn đã bình chọn quá nhiều trong một giờ. Vui lòng thử lại sau.' },
         { status: 429 },
       );
     }
@@ -93,6 +114,12 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    try {
+      await flagSubmissionIfVoteSpike(supabase, body.submission_id);
+    } catch {
+      // Best-effort: vote đã ghi nhận, không fail request vì bước giám sát.
     }
 
     return NextResponse.json({ ok: true });

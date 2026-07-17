@@ -14,7 +14,10 @@ export function assertSameOrigin(request: NextRequest) {
   const origin = request.headers.get('origin');
 
   if (!origin) {
-    return null;
+    return NextResponse.json(
+      { error: 'Nguồn yêu cầu không được phép.' },
+      { status: 403 },
+    );
   }
 
   if (origin !== env.allowedOrigin) {
