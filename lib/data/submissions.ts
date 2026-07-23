@@ -33,15 +33,21 @@ const sampleSubmissions: Submission[] = [
   },
 ];
 
-export async function getApprovedSubmissions(order: 'votes' | 'newest' = 'votes', limit = 24) {
+export async function getApprovedSubmissions(
+  order: 'votes' | 'newest' = 'votes',
+  limit?: number,
+) {
   try {
     const supabase = createServiceSupabaseClient();
-    const query = supabase
+    let query = supabase
       .from('submissions')
       .select('*')
       .eq('status', 'approved')
-      .eq('flagged_for_review', false)
-      .limit(limit);
+      .eq('flagged_for_review', false);
+
+    if (typeof limit === 'number') {
+      query = query.limit(limit);
+    }
 
     const { data, error } =
       order === 'newest'
@@ -49,12 +55,12 @@ export async function getApprovedSubmissions(order: 'votes' | 'newest' = 'votes'
         : await query.order('vote_count', { ascending: false }).order('created_at', { ascending: false });
 
     if (error || !data) {
-      return sampleSubmissions.slice(0, limit);
+      return typeof limit === 'number' ? sampleSubmissions.slice(0, limit) : sampleSubmissions;
     }
 
     return data as Submission[];
   } catch {
-    return sampleSubmissions.slice(0, limit);
+    return typeof limit === 'number' ? sampleSubmissions.slice(0, limit) : sampleSubmissions;
   }
 }
 
@@ -68,8 +74,8 @@ export async function getFeaturedSubmissions() {
 }
 
 export async function getLeaderboard(limit = 10): Promise<LeaderboardEntry[]> {
-  const submissions = await getApprovedSubmissions('votes');
-  return submissions.slice(0, limit).map((submission) => ({
+  const submissions = await getApprovedSubmissions('votes', limit);
+  return submissions.map((submission) => ({
     id: submission.id,
     full_name: submission.full_name,
     slug: submission.slug,
